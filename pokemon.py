@@ -82,7 +82,24 @@ def battle():
                 keep_attect = False
                 print('battle ended')
 
+                break
+
+            if  name == "Trainer's Linebacker battle ended!":
+                keep_attect = False
+                print('battle ended')
+
                 break 
+
+            if  name.find('ended!') != -1:
+                keep_attect = False
+                print('battle ended')
+
+                break 
+
+            if  name.find('Swapping') != -1:
+                sendMessage(927963670330351686,'Rattata')
+
+                break
 
     now = datetime.datetime.now()
     print(now)

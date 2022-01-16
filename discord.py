@@ -108,9 +108,9 @@ def checkIsInLastMessage(channel_id):
     user_name = user_response['username']
 
     messages = getMessages(channel_id)
-    print(messages)
+    # print(messages)
     arr = np.array(messages)
-    messages = arr[0:6]
+    messages = arr[0:14]
 
     return any(object['author']['username'] == user_name for object in messages)
 
@@ -123,6 +123,7 @@ if __name__ == "__main__":
         if need_delete:
             print('need to delete')
             response = sendMessage(channel_id,'! rank')
+            print("response_finish time = {}".format(datetime.datetime.now()))
             response_json = response.json()
             message_id = data = response_json['id']
 
