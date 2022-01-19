@@ -135,7 +135,6 @@ if __name__ == "__main__":
 
         response = sendMessage(channel_id,'!rank')
         print("response_finish time = {}".format(datetime.datetime.now()))
-        delay(1)
         status_code  = response.status_code
         print("status_code time = {}".format(status_code))
         if status_code == 429 :
@@ -144,3 +143,5 @@ if __name__ == "__main__":
             retry_after = math.ceil(retry_after)
             print("retry_after = {}".format(retry_after))
             time.sleep(retry_after)
+        else:
+            delay(1)
