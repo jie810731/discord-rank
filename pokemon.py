@@ -7,6 +7,7 @@ import math
 import numpy as np
 import os
 import random
+import numpy as np
 
 header = {
             "Authorization": "OTIwOTUwMTE3MjI4NDkwNzky.YdTofw.3dot1Af3IkNxt36P2RUOp0Hqcc4",
@@ -54,52 +55,97 @@ def getMessages(channel):
 def battle():
     now = datetime.datetime.now()
     until_time = now + datetime.timedelta(minutes=1)
-    
+
+    messages = getMessages(927963670330351686)
+    is_skip = False
+    for message in messages[0:1]: 
+        print(messages[0:1])
+        try:
+            auth_name = message['author']['username']
+            if 'auth_name' == 'croakcroakjau':
+                is_skip = True
+                break
+        except:
+            # Key is not present
+            pass
+    if is_skip:
+        time.sleep(600)
+        return
     sendMessage(927963670330351686,'.route 1')
     time.sleep(5)
-    # sendMessage(927963670330351686,'1')
-    message = getMessages(927963670330351686)
+    messages = getMessages(927963670330351686)
 
-    keep_attect = True
-
-    while keep_attect:
-        attect_method = random.choice(["1", '2'])
-        sendMessage(927963670330351686,attect_method)
-        time.sleep(5)
-        messages = getMessages(927963670330351686)
-        for message in messages:
-            name = ''
-            if  len(message['embeds']) > 0:     
-                try:
-                    name = message['embeds'][0]['author']['name']
-                except KeyError:
-                    # Key is not present
-                    pass
-            if name.find('Charmander') != -1:
-                break  
-
-            if  name == 'Wild battle has ended!':
-                keep_attect = False
-                print('battle ended')
+    in_found = False
+    for message in messages[0:3]: 
+        try:
+            name = message['embeds'][0]['author']['name']
+            if name.find('Vs.') != -1:
+                print('')
+                in_found = True       
 
                 break
+        except:
+            # Key is not present
+            pass
+    
+    if in_found == False:
+        print('break')
+        return
+    print('lets go')
+    sendMessage(927963670330351686,1)
 
-            if  name == "Trainer's Linebacker battle ended!":
-                keep_attect = False
-                print('battle ended')
+    time.sleep(5)
 
-                break 
+    messages = getMessages(927963670330351686)
+    for message in messages[3:]: 
+        try:
+            name = message['embeds'][0]['author']['name']
+            if name.find('You are currently engaged in a wild Pokémon battle') != -1:
+                time.sleep(120)
+        except:
+            # Key is not present
+            pass
 
-            if  name.find('ended!') != -1:
-                keep_attect = False
-                print('battle ended')
+    # keep_attect = True
 
-                break 
+    # while keep_attect:
+    #     attect_method = random.choice(["1", '2'])
+    #     sendMessage(927963670330351686,attect_method)
+    #     time.sleep(5)
+    #     messages = getMessages(927963670330351686)
+    #     for message in messages:
+    #         name = ''
+    #         if  len(message['embeds']) > 0:     
+    #             try:
+    #                 name = message['embeds'][0]['author']['name']
+    #             except KeyError:
+    #                 # Key is not present
+    #                 pass
+    #         if name.find('Charmander') != -1:
+    #             break  
 
-            if  name.find('Swapping') != -1:
-                sendMessage(927963670330351686,'Rattata')
+    #         if  name == 'Wild battle has ended!':
+    #             keep_attect = False
+    #             print('battle ended')
 
-                break
+    #             break
+
+    #         if  name == "Trainer's Linebacker battle ended!":
+    #             keep_attect = False
+    #             print('battle ended')
+
+    #             break 
+
+    #         if  name.find('ended!') != -1:
+    #             keep_attect = False
+    #             print('battle ended')
+
+    #             break 
+
+    #         if  name.find('Swapping') != -1:
+    #             sendMessage(927963670330351686,'Rattata')
+
+    #             break
 
     now = datetime.datetime.now()
     print(now)
@@ -114,3 +160,20 @@ if __name__ == "__main__":
     init()
     while True:
         battle()
+
+    # messages = getMessages(927963670330351686)
+    # in_found = False
+    # print( messages[0:3])
+    # for message in messages[2:]: 
+    #     try:
+    #         name = message['embeds'][0]['author']['name']
+    #         if name.find('Vs.') != -1:
+    #             print('')
+    #             in_found = True       
+
+    #             break
+    #     except:
+    #         # Key is not present
+    #         pass
+    
+    # print(in_found)
