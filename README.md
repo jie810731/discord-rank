@@ -45,3 +45,16 @@ docker build -f PokemonDockerfile -t pokemon .
 docker run -i -t \
  -e Token={{token}} \
  --name {{container_name}} pokemon
+
+## giveaways
+
+### build
+
+docker build -f GiveawaysDockerfile -t giveaways .
+
+### run
+
+docker run -i -t -d --rm \
+ -e Token={{token}} \
+ -e Channel_Id={{channel_id}} \
+ --name {{container_name}} giveaways
