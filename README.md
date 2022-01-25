@@ -58,3 +58,17 @@ docker run -i -t -d --rm \
  -e Token={{token}} \
  -e Channel_Id={{channel_id}} \
  --name {{container_name}} giveaways
+
+## sendAndDelete
+
+### build
+
+docker build -f SendAndDeleteDockerfile -t sendanddelete .
+
+### run
+
+docker run -i -t -d --rm \
+ -e Token={{token}} \
+ -e Channel_Id={{channel_id}} \
+ -e Message={{message}} \
+ --name {{container_name}} sendanddelete
