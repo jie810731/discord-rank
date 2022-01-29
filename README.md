@@ -46,8 +46,6 @@ docker run -i -t \
  -e Token={{token}} \
  --name {{container_name}} pokemon
 
-
-
 ## repeat
 
 ### build
@@ -61,8 +59,20 @@ docker run -i -t -d \
  -e Channel_Id={{channel_id}} \
  --name {{container_name}} repeat
 
+## giveaways
 
-## send and delete
+### build
+
+docker build -f GiveawaysDockerfile -t giveaways .
+
+### run
+
+docker run -i -t -d --rm \
+ -e Token={{token}} \
+ -e Channel_Id={{channel_id}} \
+ --name {{container_name}} giveaways
+
+## sendAndDelete
 
 ### build
 
