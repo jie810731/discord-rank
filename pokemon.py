@@ -48,7 +48,8 @@ def getMessages(channel):
 
         data = res.json()
     except:
-        pass
+        data =  []
+
     return data
 
 

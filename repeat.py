@@ -6,6 +6,7 @@ import time
 import math
 import numpy as np
 import os
+import random
 
 header = {
             "Authorization": "OTIwOTUwMTE3MjI4NDkwNzky.YdTofw.3dot1Af3IkNxt36P2RUOp0Hqcc4",
@@ -15,12 +16,20 @@ header = {
 
 
 def init():
-    # token = os.environ['Token']
-    token ='OTIwOTUwMTE3MjI4NDkwNzky.YeMc-Q.C81-5fsLhF21Mmb7a_drypRy6ew'
+    token = os.environ['Token']
     if not token:
         raise Exception('empty token')
+    channel_id = os.environ['Channel_Id']
+    if not token:
+        raise Exception('empty token')
+    
+    if not channel_id:
+        raise Exception('empty channel id')
+
 
     header['Authorization'] = token
+
+    return channel_id
 
 def getMessages(channel): 
     url = "https://discord.com/api/v9/channels/{}/messages".format(channel)
@@ -49,12 +58,9 @@ def sendMessage(channel_id,message):
 
 
 if __name__ == "__main__":
-    init()
-    channel_id  = 922854109034475560
-
+    channel_id  = init()
     while True:
         messages = getMessages(channel_id)
-        # print(messages)
         last_message = messages[-1]
         response = sendMessage(channel_id,last_message['content'])
         status_code  = response.status_code
@@ -66,4 +72,4 @@ if __name__ == "__main__":
             print("retry_after = {}".format(retry_after))
             time.sleep(retry_after)
         else:
-            time.sleep(60)
+            time.sleep(random.randint(5,10))

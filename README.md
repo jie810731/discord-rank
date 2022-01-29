@@ -45,3 +45,33 @@ docker build -f PokemonDockerfile -t pokemon .
 docker run -i -t \
  -e Token={{token}} \
  --name {{container_name}} pokemon
+
+
+
+## repeat
+
+### build
+
+docker build -f RepeatDockerfile -t repeat .
+
+### run
+
+docker run -i -t -d \
+ -e Token={{token}} \
+ -e Channel_Id={{channel_id}} \
+ --name {{container_name}} repeat
+
+
+## send and delete
+
+### build
+
+docker build -f SendAndDeleteDockerfile -t sendanddelete .
+
+### run
+
+docker run -i -t -d --rm \
+ -e Token={{token}} \
+ -e Channel_Id={{channel_id}} \
+ -e Message={{Message}} \
+ --name {{container_name}} sendanddelete
