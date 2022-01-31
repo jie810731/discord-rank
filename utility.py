@@ -3,7 +3,10 @@ import requests
 import datetime
 import pause 
 import json
+import math
+from dotenv import load_dotenv
 
+load_dotenv()
 EMOJI_CELEBRATE = "%F0%9F%8E%89"
 
 def delay(seconds=0,minutes=0,hours=0):
@@ -22,7 +25,7 @@ def getEnv(key):
     
     return value
 
-def getCurrentUser(token):
+def getCurrentUserResponse(token):
     url = "https://discord.com/api/v9/users/@me"
     
     header = {
@@ -31,9 +34,8 @@ def getCurrentUser(token):
     }
 
     res = requests.get(url=url, headers=header)
-    data = res.json()
 
-    return data
+    return res
 
 def getMessages(token,channel_id):
     url = "https://discord.com/api/v9/channels/{}/messages".format(channel_id)
@@ -87,7 +89,7 @@ def sendReaction(token,channel_id,message_id,reaction):
 def throttlingLimitsTimes(sendResponse):
     status_code = sendResponse.status_code
     if status_code == 429 :
-        data = response.json()
+        data = sendResponse.json()
         retry_after = data['retry_after']
         retry_after = math.ceil(retry_after)
 
@@ -96,9 +98,23 @@ def throttlingLimitsTimes(sendResponse):
     return 0
 
 def getUsers():
-    url = "https://api.npoint.io/598faaae1ce7ed2de7ea"
-
+    url = getEnv('USERS_API')
     res = requests.get(url=url)
     data = res.json()
 
     return data 
+
+def notify(messages):
+    body = {
+        "chat_id" : -790427094,
+        "text" : messages,
+        "parse_mode" : "markdown"
+    }
+
+    url = 'https://api.telegram.org/bot5277878862:AAGh-AfBwn35qBomaV0OoH3B9bxDvWwYnDs/sendMessage'
+    header = { 
+        "Content-Type": "application/json",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36",
+    }   
+    res = requests.get(url=url, headers=header,data=json.dumps(body))
+    data = res.json()
