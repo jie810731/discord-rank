@@ -37,9 +37,19 @@ if __name__ == "__main__":
                     
                 for message in messages:
                     content = message['content']
+                    content = content.upper()
 
-                    if content.find('GIVEAWAY') != -1:
+                    embed = ''
+                    embeds = message['embeds']
+                    if len(embeds) > 0:
+                        try:
+                            embed = embeds[0]['title'] 
+                            embed = embed.upper()
+                        except:
+                            pass
+                    if content.find('GIVEAWAY') != -1 or embed.find('GIVEAWAY') != -1:
                         message_id = message['id']
                         utility.sendReaction(token,channel_id,message_id,utility.EMOJI_CELEBRATE)
+                        utility.delay(1,0,0)
 
         utility.delay(0,14,0)
