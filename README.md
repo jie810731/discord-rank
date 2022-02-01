@@ -67,9 +67,7 @@ docker build -f GiveawaysDockerfile -t giveaways .
 
 ### run
 
-docker run -i -t -d --rm \
- -e Token={{token}} \
- -e Channel_Id={{channel_id}} \
+docker run -i -t -d \
  --name {{container_name}} giveaways
 
 ## sendAndDelete
